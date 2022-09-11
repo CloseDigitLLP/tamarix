@@ -8,7 +8,7 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch(action.type){
-        case actionTypes.PORTFOLIOS:
+        case actionTypes.PORTFOLIO_DETAILS:
             return { 
                 ...state, 
                 success: false, 
@@ -16,7 +16,7 @@ const usersReducer = (state = initialState, action) => {
                 error: '',
                 data: {}
             }
-        case actionTypes.PORTFOLIOS_SUCCESS:
+        case actionTypes.PORTFOLIO_DETAILS_SUCCESS:
             return { 
                 ...state, 
                 success: true, 
@@ -24,7 +24,7 @@ const usersReducer = (state = initialState, action) => {
                 error: '',
                 data: action.payload,
             }
-        case actionTypes.PORTFOLIOS_FAILED:
+        case actionTypes.PORTFOLIO_DETAILS_FAILED:
             return { 
                 ...state,
                 success: false,
