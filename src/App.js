@@ -3,19 +3,64 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
+  useNavigate,
+  useParams
 } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Welcome from './pages/Welcome';
 import Portfolio from './pages/Portfolio';
+import { connect } from 'react-redux';
+import * as portfolioActions from './services/portfolios/actions'
+import { useEffect } from 'react';
+import Loader from './components/Loader';
+import Error from './components/Error'; 
+import Wrapper from './components/Wrapper';
 
-function App() {
+function App(props) {
+  const { portfolios, getPortfolios } = props
+  let params = useParams()
+  let navigate = useNavigate()
+
+  useEffect(() => {
+    getPortfolios();
+  }, [])
+
+  if(portfolios.loading) {
+    return <Loader />
+  }
+
+  if(portfolios.error) {
+    return <Error message={portfolios.error} />
+  }
+
+
   return (
-    <Router>
+    <>
       <Routes>
-        <Route exact path="/" element={<Welcome />} />
-        <Route exact path="/portfolio" element={<Portfolio />} />
+        <Route exact path="/" element={<Wrapper Component={Welcome} />} />
+        <Route exact path="/portfolio/:id" element={<Wrapper Component={Portfolio} />} />
       </Routes>
-    </Router>
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
+    </>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  portfolios: state.portfolios
+})
+
+const mapDispatchToProps = {
+  getPortfolios: portfolioActions.getPortfolios
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

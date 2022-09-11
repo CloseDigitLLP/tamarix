@@ -1,5 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { 
+  PieChart,
+  Pie,
+  Sector,
+  // Cell,
+  ResponsiveContainer
+} from "recharts";
 
 
 const data = [
@@ -88,18 +94,18 @@ const renderActiveShape = (props) => {
     </g>
   );
 };
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+// const RADIAN = Math.PI / 180;
+// const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+//   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+//   const x = cx + radius * Math.cos(-midAngle * RADIAN);
+//   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
+//   return (
+//     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+//       {`${(percent * 100).toFixed(0)}%`}
+//     </text>
+//   );
+// };
 
 // export default class Chart extends React.Component { 
 //     state = {
@@ -174,23 +180,22 @@ function Chart(props) {
     },
     [setActiveIndex]
   );
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-  const [metrics, setMetrics] = useState([
-    {label: 'Commitment ', checked: true},
-    {label: 'Total called', checked: false},
-    {label: 'Total distributed ', checked: false},
-    {label: 'NAV', checked: false},
-  ])
+  // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  // const [metrics, setMetrics] = useState([
+  //   {label: 'Commitment ', checked: true},
+  //   {label: 'Total called', checked: false},
+  //   {label: 'Total distributed ', checked: false},
+  //   {label: 'NAV', checked: false},
+  // ])
 
-  const getData = () => {
-    console.log(metrics, data[metrics.find(metric => metric.checked).label])
-    return Object.keys(data[metrics.find(metric => metric.checked).label]).map(key => ({ name: key, value: data[metrics.find(metric => metric.checked).label][key] }))
-  }
+  // const getData = () => {
+  //   console.log(metrics, data[metrics.find(metric => metric.checked).label])
+  //   return Object.keys(data[metrics.find(metric => metric.checked).label]).map(key => ({ name: key, value: data[metrics.find(metric => metric.checked).label][key] }))
+  // }
 
-  const getSum = () => {
-    return Object.keys(data[metrics.find(metric => metric.checked).label]).reduce((total, key) => (total + data[metrics.find(metric => metric.checked).label][key]), 0)
-  }
-  console.log('chart container : ', props)
+  // const getSum = () => {
+  //   return Object.keys(data[metrics.find(metric => metric.checked).label]).reduce((total, key) => (total + data[metrics.find(metric => metric.checked).label][key]), 0)
+  // }
   return (
     <>
     <ResponsiveContainer width={'100%'} height={300} >

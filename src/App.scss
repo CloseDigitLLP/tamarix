@@ -404,3 +404,17 @@ body{
   height: calc(100vh);
   overflow: scroll;
 }
+
+.portfolio_title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.person-name p {
+  text-transform: capitalize;
+}
+
+.person-Initiative {
+  text-transform: uppercase;
+}

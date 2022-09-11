@@ -6,12 +6,77 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import '../assets/owl.scss'
 import Chart from './components/PieChart';
 import BarChart from './components/BarChart';
+import { connect } from 'react-redux';
+import * as portfolioActions from '../services/portfolios/actions';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+import Select from 'react-select'
 
-export default class Portfolio extends React.Component {
+const customStyles = {
+    container: (styles) => ({ ...styles, background: 'transparent', outline: 'none', marginLeft: 10 }),
+    control: (styles) => ({ ...styles, background: 'transparent', border: 'none',  fontSize: 24, fontWeight: 600, letterSpacing: 0.5 }),
+    indicatorSeparator: () => ({ display: 'none' }),
+    menu: (styles) => ({ ...styles, zIndex: 9 })
+}
+  
+
+class Portfolio extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = this.configureState()
+    }
+
+    componentDidMount() {
+        // this.props.getPortfolios()
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.params.id !== this.props.params.id) {
+            this.setState(this.configureState())
+        }
+    }
+
+    configureState() {
+        const { portfolios } = this.props
+        let portfolioList = portfolios?.data?.portfolios || []
+        const { id } = (this?.props?.params) || {}
+
+        if(portfolioList.includes(id)) {
+            return {
+                activePortfolio: { label: id, value: id }
+            }
+        } else {
+            return {
+                activePortfolio: {},
+            }
+        }
+    }
+
     render() {
+        const { portfolios } = this.props
+
+        if(portfolios.loading) {
+            return <Loader />
+        }
+
+        if(portfolios.error) {
+            return <Error message={portfolios.error} />
+        }
+
+
+        let portfolioList = portfolios?.data?.portfolios || []
+        
         return (
             <SidebarLayout>
-                <h5 className='page-name'>Portfolio</h5>
+                <div className='portfolio_title'>
+                    <h5 className='page-name'>
+                        Portfolio : 
+                    </h5>
+                    <div className='ml-3'>
+                        <Select value={this.state.activePortfolio} onChange={e => this.props.navigate(`/portfolio/${e.value}`)} styles={customStyles} options={portfolioList.map(portfolio => ({ label: portfolio, value: portfolio }))} />
+                    </div>
+                </div>
 
                 <h5 className='title mt-3'>Summary Statistics</h5>
                 <div className='custom-container mt-3'>
@@ -23,8 +88,8 @@ export default class Portfolio extends React.Component {
                         dots={false}
                         autoWidth={false}
                         navText= {[
-                            '<i class="fa-solid fa-chevron-left"></i>',
-                            '<i class="fa-solid fa-chevron-right"></i>'
+                            '<i className="fa-solid fa-chevron-left"></i>',
+                            '<i className="fa-solid fa-chevron-right"></i>'
                         ]}
                         responsive={{
                             0:{
@@ -44,7 +109,7 @@ export default class Portfolio extends React.Component {
                                 <h2>20</h2>
                             </div>
                             <div className='tile-icon'>
-                                <i class="fa-duotone fa-2x fa-dollar-sign"></i>
+                                <i className="fa-duotone fa-2x fa-dollar-sign"></i>
                             </div>
                         </div>
                         <div className='top-tile'>
@@ -53,7 +118,7 @@ export default class Portfolio extends React.Component {
                                 <h2>$5000.4 M</h2>
                             </div>
                             <div className='tile-icon'>
-                                <i class="fa-solid fa-2x fa-handshake"></i>
+                                <i className="fa-solid fa-2x fa-handshake"></i>
                             </div>
                         </div>
                         <div className='top-tile'>
@@ -62,7 +127,7 @@ export default class Portfolio extends React.Component {
                                 <h2>4</h2>
                             </div>
                             <div className='tile-icon'>
-                                <i class="fa-solid fa-2x fa-chess"></i>
+                                <i className="fa-solid fa-2x fa-chess"></i>
                             </div>
                         </div>
                         <div className='top-tile'>
@@ -71,9 +136,9 @@ export default class Portfolio extends React.Component {
                                 <h2>$520.6M</h2>
                             </div>
                             <div className='tile-icon'>
-                                {/* <i class="fa-duotone fa-3x fa-dollar-sign"></i> */}
-                                {/* <i class="fa-regular fa-3x fa-sack-dollar"></i> */}
-                                <i class="fa-solid fa-2x fa-sack-dollar"></i>
+                                {/* <i className="fa-duotone fa-3x fa-dollar-sign"></i> */}
+                                {/* <i className="fa-regular fa-3x fa-sack-dollar"></i> */}
+                                <i className="fa-solid fa-2x fa-sack-dollar"></i>
                             </div>
                         </div>
                         <div className='top-tile'>
@@ -82,8 +147,8 @@ export default class Portfolio extends React.Component {
                                 <h2>$600.32</h2>
                             </div>
                             <div className='tile-icon'>
-                                {/* <i class="fa-duotone fa-3x fa-dollar-sign"></i> */}
-                                <i class="fa-solid fa-2x fa-hand-holding-dollar"></i>
+                                {/* <i className="fa-duotone fa-3x fa-dollar-sign"></i> */}
+                                <i className="fa-solid fa-2x fa-hand-holding-dollar"></i>
                             </div>
                         </div>
                         <div className='top-tile'>
@@ -92,8 +157,8 @@ export default class Portfolio extends React.Component {
                                 <h2>200.2X</h2>
                             </div>
                             <div className='tile-icon'>
-                                <i class="fa-solid fa-2x fa-money-bill-trend-up"></i>
-                                {/* <i class="fa-duotone fa-3x fa-dollar-sign"></i> */}
+                                <i className="fa-solid fa-2x fa-money-bill-trend-up"></i>
+                                {/* <i className="fa-duotone fa-3x fa-dollar-sign"></i> */}
                             </div>
                         </div>
                     </OwlCarousel>  
@@ -152,3 +217,13 @@ export default class Portfolio extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    portfolios: state.portfolios
+})
+
+const mapDispatchToProps = {
+    getPortfolios: portfolioActions.getPortfolios
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)
