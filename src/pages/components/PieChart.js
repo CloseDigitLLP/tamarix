@@ -4,7 +4,8 @@ import {
   Pie,
   Sector,
   // Cell,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Legend
 } from "recharts";
 
 
@@ -17,8 +18,10 @@ const data = [
 
 
 const renderActiveShape = (props) => {
+  console.log('chart prop to display metric', props)
   const RADIAN = Math.PI / 180;
   const {
+    id,
     cx,
     cy,
     midAngle,
@@ -81,15 +84,15 @@ const renderActiveShape = (props) => {
         y={ey}
         textAnchor={textAnchor}
         fill="#333"
-      > {'Commitment'}:  {`${value}`}</text>
+      > {id} {id !== 'No Data' && `: ${value}`}</text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 20}
         y={ey}
-        dy={18}
+        dy={20}
         textAnchor={textAnchor}
         fill="#999"
       >
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        {`${(percent * 100).toFixed(2)}%`}
       </text>
     </g>
   );
@@ -172,14 +175,80 @@ const renderActiveShape = (props) => {
 //     }
 // }
 
+const getCommitmentStats = (port_data, strategies) => {
+  let stats = []
+  for(let strategy in strategies) {
+    stats.push({
+      name: strategy,
+      value: strategies[strategy].reduce((total, index) => total + port_data['Commitment '][parseInt(index)], 0)
+    })
+  }
+  return stats
+}
+
+const getCalledStats = (port_data, strategies) => {
+  let stats = []
+  for(let strategy in strategies) {
+    stats.push({
+      name: strategy,
+      value: strategies[strategy].reduce((total, index) => total + port_data['Total called'][parseInt(index)], 0)
+    })
+  }
+  return stats
+}
+
+const getUnfundedStats = (port_data, strategies) => {
+  let stats = []
+  for(let strategy in strategies) {
+    stats.push({
+      name: strategy,
+      value: strategies[strategy].reduce((total, index) => total + (port_data['Commitment '][parseInt(index)] - port_data['Total called'][parseInt(index)]), 0)
+    })
+  }
+  return stats
+}
+
+const getNAVStats = (port_data, strategies) => {
+  let stats = []
+  for(let strategy in strategies) {
+    stats.push({
+      name: strategy,
+      value: strategies[strategy].reduce((total, index) => total + port_data['NAV'][parseInt(index)], 0)
+    })
+  }
+  return stats
+}
+
+const getChartData = (port_data, metric) => {
+  let strategies = {}
+  for(let key in port_data.Strategy) {
+    if(!strategies[port_data.Strategy[key]]) {
+      strategies[port_data.Strategy[key]] = []
+    }
+    strategies[port_data.Strategy[key]].push(key)
+  }
+
+  switch(metric) {
+    case 'Commitment ': return getCommitmentStats(port_data, strategies);
+    case 'Total called': return getCalledStats(port_data, strategies);
+    case 'Total unfunded': return getUnfundedStats(port_data, strategies);
+    case 'NAV': return getNAVStats(port_data, strategies);
+    default: return getCommitmentStats(port_data, strategies);
+  }
+}
+
 function Chart(props) {
-    const [activeIndex, setActiveIndex] = useState(0);
+  const { port_data, metric } = props
+  const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
     (_, index) => {
       setActiveIndex(index);
     },
     [setActiveIndex]
   );
+
+  const data = getChartData(port_data, metric)
+
   // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   // const [metrics, setMetrics] = useState([
   //   {label: 'Commitment ', checked: true},
@@ -193,14 +262,15 @@ function Chart(props) {
   //   return Object.keys(data[metrics.find(metric => metric.checked).label]).map(key => ({ name: key, value: data[metrics.find(metric => metric.checked).label][key] }))
   // }
 
-  // const getSum = () => {
-  //   return Object.keys(data[metrics.find(metric => metric.checked).label]).reduce((total, key) => (total + data[metrics.find(metric => metric.checked).label][key]), 0)
-  // }
+  const getSum = () => {
+    return data.reduce((total, key) => (total + key.value), 0)
+  }
   return (
     <>
-    <ResponsiveContainer width={'100%'} height={300} >
+    <ResponsiveContainer width={'100%'} height={350} >
         <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
             <Pie
+                id={metric}
                 activeIndex={activeIndex}
                 activeShape={renderActiveShape}
                 data={data}
@@ -214,21 +284,22 @@ function Chart(props) {
                 paddingAngle={5}
             >
             </Pie>
-
-            {/* {getSum() === 0 &&
+            <Legend align="right"  />
+            {getSum() === 0 &&
             <Pie
+            id="No Data"
             data={[{name: 'No Data', value: 1}]}
             fill="#aaa" 
-            cx={400}
-            cy={200}
-            innerRadius={60}
-            outerRadius={80}
+            // cx={400}
+            // cy={200}
+            innerRadius={80}
+            outerRadius={110}
             dataKey="value"
             onMouseEnter={onPieEnter}
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
             />
-            } */}
+            }
         </PieChart>
     </ResponsiveContainer>
     </>
