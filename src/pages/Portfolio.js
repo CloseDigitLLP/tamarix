@@ -153,8 +153,8 @@ class Portfolio extends React.Component {
                             dots={false}
                             autoWidth={false}
                             navText= {[
-                                '<i className="fa-solid fa-chevron-left"></i>',
-                                '<i className="fa-solid fa-chevron-right"></i>'
+                                '<i class="fa-solid fa-chevron-left"></i>',
+                                '<i class="fa-solid fa-chevron-right"></i>'
                             ]}
                             responsive={{
                                 0:{
@@ -251,12 +251,12 @@ class Portfolio extends React.Component {
                     </div>
 
 
-                    <h5 className='title mt-3'>Distribution of fund performance</h5>
+                    {/* <h5 className='title mt-3'></h5> */}
                     <div className='custom-container mt-3'>
                         <div className='section-title-container'>
-                            <h5 className='title'>Exposures</h5>
-                            <div className='selector-btns-container'>
-                            <button onClick={() => this.setState({ barMetrics: 'Commitment ' })} className={`selector-button ${this.state.barMetrics === 'Commitment ' && 'active'}`}>
+                            <h5 className='title'>Distribution of fund performance</h5>
+                            {/* <div className='selector-btns-container'>
+                                <button onClick={() => this.setState({ barMetrics: 'Commitment ' })} className={`selector-button ${this.state.barMetrics === 'Commitment ' && 'active'}`}>
                                     Commitment
                                 </button>
                                 <button onClick={() => this.setState({ barMetrics: 'Total called' })} className={`selector-button ${this.state.barMetrics === 'Total called' && 'active'}`}>
@@ -268,10 +268,10 @@ class Portfolio extends React.Component {
                                 <button onClick={() => this.setState({ barMetrics: 'NAV' })} className={`selector-button ${this.state.barMetrics === 'NAV' && 'active'}`}>
                                     NAV
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='mt-3'>
-                            <BarChart />
+                            <BarChart port_data={port_data} metric={this.state.barMetrics} />
                         </div>
                     </div>
                 </>

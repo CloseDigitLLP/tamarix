@@ -1,14 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Loader from './Loader';
 class Sidebar extends React.Component {
     render() {
-        const { portfolios } = this.props
-        if(portfolios.loading) {
-            return <Loader />
-        }
-        let portfolioList = portfolios?.data?.portfolios || []
         return (
             <div className='sidebar-part'>
                 <div className='sidebar-logo'>
@@ -21,13 +15,6 @@ class Sidebar extends React.Component {
                         <i className="fa-solid fa-chart-line"></i>
                         <Link to={'/portfolio'}>Portfolio</Link>
                     </div>
-                        <ul>
-                            {portfolioList.map((portfolio, index) => (
-                                index < 5 ?
-                                <li key={index}>{portfolio}</li>
-                                : <></>
-                            ))}
-                        </ul>
                     </li>
                     <li className={window.location.pathname === '/scenarios' ? 'active' : ''}>
                     <div>
