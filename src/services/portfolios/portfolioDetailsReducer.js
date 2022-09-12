@@ -1,12 +1,12 @@
 import  * as actionTypes from './actionTypes'
 let initialState = {
     success: false,
-    loading: true,
+    loading: false,
     error: '',
     data: {}
 }
 
-const usersReducer = (state = initialState, action) => {
+const portfolioDetailsReducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.PORTFOLIO_DETAILS:
             return { 
@@ -36,4 +36,4 @@ const usersReducer = (state = initialState, action) => {
             return state
     }
 }
-export default usersReducer
+export default portfolioDetailsReducer

@@ -41,3 +41,7 @@ export const getPortfolioDetails = (id) =>  (dispatch) => {
         return dispatch({ type: actionTypes.PORTFOLIO_DETAILS_FAILED, payload: error.message })
     }
 }
+
+export const changeActivePortfolio = (item) => (dispatch) => {
+    dispatch({ type: actionTypes.CHANGE_ACTIVE_PORTFOLIO, payload: item })
+}

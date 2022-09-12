@@ -6,7 +6,7 @@ let initialState = {
     data: {}
 }
 
-const usersReducer = (state = initialState, action) => {
+const portfoliosReducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.PORTFOLIOS:
             return { 
@@ -36,4 +36,4 @@ const usersReducer = (state = initialState, action) => {
             return state
     }
 }
-export default usersReducer
+export default portfoliosReducer

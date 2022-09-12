@@ -217,7 +217,7 @@ body{
 }
 .header-part .heder-content{
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 .header-part .heder-content .placeolder-image{
     width: 50px;
@@ -289,7 +289,7 @@ body{
   border-radius: 20px;
   padding: 10px;
   /* margin-left: 10px; */
-  width: 300px;
+  // width: 300px;
   height: 150px;
   display: flex;
   flex-direction: row;
@@ -318,6 +318,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding-left: 0.5rem;
 }
 
 .tile-icon {

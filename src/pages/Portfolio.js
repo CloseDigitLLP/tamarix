@@ -10,58 +10,39 @@ import { connect } from 'react-redux';
 import * as portfolioActions from '../services/portfolios/actions';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
-import Select from 'react-select'
 import { convertToInternationalCurrencySystem } from '../utils/currency';
-
-const customStyles = {
-    container: (styles) => ({ ...styles, background: 'transparent', outline: 'none', marginLeft: 10 }),
-    control: (styles) => ({ ...styles, background: 'transparent', border: 'none',  fontSize: 24, fontWeight: 600, letterSpacing: 0.5 }),
-    indicatorSeparator: () => ({ display: 'none' }),
-    menu: (styles) => ({ ...styles, zIndex: 9 })
-}
   
-
 class Portfolio extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            ...this.configureState(),
+            // ...this.configureState(),
             pieMetrics: 'Commitment ',
             barMetrics: 'Commitment '
         }
     }
 
     componentDidMount() {
-        if(this?.state?.activePortfolio?.value) {
-            this.props.getPortfolioDetails(this?.state?.activePortfolio?.value)
+        if(this?.props?.activePortfolio?.value) {
+            this.props.getPortfolioDetails(this?.props?.activePortfolio?.value)
+        } else {
+            this.configureState()
         }
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.params.id !== this.props.params.id) {
-            this.setState(this.configureState(), () => {
-                if(this?.state?.activePortfolio?.value) {
-                    this.props.getPortfolioDetails(this?.state?.activePortfolio?.value)
-                }
-            })
+        if(prevProps.activePortfolio.value !== this.props.activePortfolio.value) {
+            if(this?.props?.activePortfolio?.value) {
+                this.props.getPortfolioDetails(this?.props?.activePortfolio?.value)
+            }
         }
     }
 
     configureState() {
         const { portfolios } = this.props
         let portfolioList = portfolios?.data?.portfolios || []
-        const { id } = (this?.props?.params) || {}
-
-        if(portfolioList.includes(id)) {
-            return {
-                activePortfolio: { label: id, value: id }
-            }
-        } else {
-            return {
-                activePortfolio: {},
-            }
-        }
+        this.props.changeActivePortfolio({ label: portfolioList[0], value: portfolioList[0] })
     }
 
     getTotalFundCount(port_data) {
@@ -107,7 +88,7 @@ class Portfolio extends React.Component {
 
     render() {
         const { portfolios, portfolioDetails } = this.props
-        const { activePortfolio } = this.state
+        const { activePortfolio } = this.props
 
         if(portfolios.loading || portfolioDetails.loading) {
             if(portfolios.loading) {
@@ -126,22 +107,11 @@ class Portfolio extends React.Component {
                 <Error />
             </SidebarLayout>
         }
-
-        let portfolioList = portfolios?.data?.portfolios || []
         const { port_data } = portfolioDetails.data
 
         return (
             <SidebarLayout>
-                <div className='portfolio_title'>
-                    <h5 className='page-name'>
-                        Portfolio : 
-                    </h5>
-                    <div className='ml-3'>
-                        <Select value={this.state.activePortfolio} onChange={e => this.props.navigate(`/portfolio/${e.value}`)} styles={customStyles} options={portfolioList.map(portfolio => ({ label: portfolio, value: portfolio }))} />
-                    </div>
-                </div>
-
-                {activePortfolio && activePortfolio.value && 
+                {portfolioDetails.success && activePortfolio && activePortfolio.value && 
                 <>
                     <h5 className='title mt-3'>Summary Statistics</h5>
                     <div className='custom-container mt-3'>
@@ -149,7 +119,7 @@ class Portfolio extends React.Component {
                             className="owl-theme"  
                             loop={false}
                             nav={true}
-                            margin={-100} 
+                            margin={20} 
                             dots={false}
                             autoWidth={false}
                             navText= {[
@@ -163,9 +133,15 @@ class Portfolio extends React.Component {
                                 600:{
                                     items: 1
                                 },
-                                1000:{
+                                991:{
+                                    items: 2
+                                },
+                                1280:{
                                     items: 3
-                                }
+                                },
+                                2000:{
+                                    items: 6
+                                },
                             }}
                         >  
                             <div className='top-tile'>
@@ -288,12 +264,14 @@ class Portfolio extends React.Component {
 
 const mapStateToProps = (state) => ({
     portfolios: state.portfolios,
-    portfolioDetails: state.portfolioDetails
+    portfolioDetails: state.portfolioDetails,
+    activePortfolio: state.activePortfolio
 })
 
 const mapDispatchToProps = {
     getPortfolios: portfolioActions.getPortfolios,
-    getPortfolioDetails: portfolioActions.getPortfolioDetails
+    getPortfolioDetails: portfolioActions.getPortfolioDetails,
+    changeActivePortfolio: portfolioActions.changeActivePortfolio
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)

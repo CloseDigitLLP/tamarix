@@ -20,7 +20,7 @@ class Welcome extends React.Component {
                 <div className='description'>
                     <h3 className='welcome-text mt-5'>Welcome</h3>
                     <p className='sentence mt-4'>The future of private markets investment management.</p>
-                    <Link to={`/portfolio/${id}`}>
+                    <Link to={`/portfolio`}>
                         <button type="button" className='button'>Go To Dashboard</button>
                     </Link>
                 </div>
