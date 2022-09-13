@@ -6,6 +6,7 @@ import scenarios from './scenarios/scenariosReducer';
 import activeScenario from './scenarios/activeScenarioReducer';
 import scenarioDetails from './scenarios/scenarioDetailsReducer';
 import updateScenarioDetails from './scenarios/updatescenarioDetailsReducer';
+import forecasts from './forecasts/forecastsReducer';
 export default combineReducers({
     portfolios,
     portfolioDetails,
@@ -13,5 +14,6 @@ export default combineReducers({
     scenarios,
     activeScenario,
     scenarioDetails,
-    updateScenarioDetails
+    updateScenarioDetails,
+    forecasts
 })

@@ -9,24 +9,7 @@ import * as scenarioActions from '../services/scenarios/actions';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
 import { toast } from "react-toastify"
-
-const customStyles = {
-    container: (styles) => ({ ...styles, background: 'white', outline: 'none', borderRadius: 90, justifyContent: 'space-between', display: 'flex', paddingLeft: 10, paddingRight: 20, minWidth: 300, maxWidth:'40%'}),
-    control: (styles, {isFocused, isSelected}) => ({ ...styles, flex: 1, background: 'transparent', border: 'none', minHeight:50,  fontSize: 18, fontWeight: 400, letterSpacing: 0.5, ':hover': { borderColor: '#fff', boxShadow: 'none' },  boxShadow: isSelected ? undefined : undefined }),
-    indicatorSeparator: () => ({ display: 'none' }),
-    indicatorsContainer: (styles) => ({ ...styles }),
-    dropdownIndicator: (styles) => ({ ...styles, background: '#65A8C9', color: 'white', borderRadius: 99 }),
-    menu: (styles) => ({ ...styles, zIndex: 9 }),
-    option: (styles, {isFocused, isSelected}) =>{
-        return{
-            ...styles,
-            cursor: 'pointer',
-            'hover' : {backgroundColor:'#65a9c98a'},
-            backgroundColor: isFocused ? '#000' : ( isSelected ? '#65a9c98a' : '' ),
-            boxShadow: undefined
-        };
-    }
-}
+import customStyles from '../assets/dropdownStyles';
 
 const PrettoSlider = styled(Slider)({
     color: '#52af77',
@@ -175,9 +158,9 @@ class Scenarios extends React.Component {
                         </div>
                         <div>
                         </div>
-                        <div className='row mt-3'>
+                        <div className='row'>
                             {Object.keys(scenario_data?.rates || {}).map((title) => (
-                                <div className='col-md-6' key={title}>
+                                <div className='col-lg-6 mt-3' key={title}>
                                     <div className='custom-container'>
                                     <h4 className='radio-btn-heading'>Expected pace of cash flows</h4>
                                     <h6 className='radio-btn-text'>{title}</h6>
@@ -199,8 +182,8 @@ class Scenarios extends React.Component {
                                 </div>
                             ))}  
                         </div>
-                        <div className='row mt-3'>
-                            <div className='col-lg-6 col-md-12 col-sm-12'>
+                        <div className='row'>
+                            <div className='col-lg-6 col-md-12 col-sm-12 mt-3'>
                                 <div className='custom-container'>
                                     <h4 className='radio-btn-heading'>Expected IRRs by strategy</h4>
                                     {Object.keys(scenario_data?.cmas || {}).map((title, index) => (
@@ -217,7 +200,7 @@ class Scenarios extends React.Component {
                                     ))}
                                 </div>
                             </div>
-                            <div className='col-lg-6 col-md-12 col-sm-12'>
+                            <div className='col-lg-6 col-md-12 col-sm-12 mt-3'>
                                 <div className='custom-container'>
                                     <h4 className='radio-btn-heading'>Expected IRRs by fund</h4>
                                     {Object.keys(scenario_data?.overrides || {}).map((title, index) => (

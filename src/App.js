@@ -16,6 +16,7 @@ import Loader from './components/Loader';
 import Error from './components/Error'; 
 import Wrapper from './components/Wrapper';
 import Scenarios from './pages/Scenarios';
+import Projections from "./pages/Projections";
 
 function App(props) {
   const { portfolios, getPortfolios } = props
@@ -41,6 +42,7 @@ function App(props) {
         <Route exact path="/" element={<Wrapper Component={Welcome} />} />
         <Route exact path="/portfolio" element={<Wrapper Component={Portfolio} />} />
         <Route exact path="/scenarios" element={<Wrapper Component={Scenarios} />} />
+        <Route exact path="/projection" element={<Wrapper Component={Projections} />} />
       </Routes>
       <ToastContainer 
         position="top-right"

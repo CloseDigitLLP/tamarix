@@ -23,13 +23,16 @@ export const getPortfolios = () =>  (dispatch) => {
 }
 
 
-export const getPortfolioDetails = (id) =>  (dispatch) => {
+export const getPortfolioDetails = (id, callback = false) =>  (dispatch) => {
     dispatch({ type: actionTypes.PORTFOLIO_DETAILS })
     try {
         return  new Api('get', urls.portfolioDetails(id), {}, {})
         .then(res => {
             let { data } = res
-            return dispatch({ type: actionTypes.PORTFOLIO_DETAILS_SUCCESS, payload: data })
+            dispatch({ type: actionTypes.PORTFOLIO_DETAILS_SUCCESS, payload: data })
+            if(callback) {
+                dispatch(callback())
+            }
         })
         .catch(error => {
             console.log(error)
