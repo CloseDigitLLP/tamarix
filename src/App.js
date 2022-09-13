@@ -1,9 +1,6 @@
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
-  useNavigate,
-  useParams
 } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,8 +17,6 @@ import Projections from "./pages/Projections";
 
 function App(props) {
   const { portfolios, getPortfolios } = props
-  let params = useParams()
-  let navigate = useNavigate()
 
   useEffect(() => {
     getPortfolios();
