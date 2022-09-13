@@ -4,6 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './services/store';
 import 'bootstrap/dist/css/bootstrap.css';
+import './App.scss';
 import {
   BrowserRouter as Router
 } from "react-router-dom";

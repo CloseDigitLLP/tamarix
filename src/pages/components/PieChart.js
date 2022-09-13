@@ -268,7 +268,7 @@ function Chart(props) {
                 // cy={200}
                 innerRadius={80}
                 outerRadius={110}
-                fill="#699AA8"
+                fill="#65A7C9"
                 dataKey="value"
                 onMouseEnter={onPieEnter}
                 paddingAngle={5}

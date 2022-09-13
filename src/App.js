@@ -1,4 +1,3 @@
-import './App.scss';
 import {
   BrowserRouter as Router,
   Route,
@@ -16,6 +15,7 @@ import { useEffect } from 'react';
 import Loader from './components/Loader';
 import Error from './components/Error'; 
 import Wrapper from './components/Wrapper';
+import Scenarios from './pages/Scenarios';
 
 function App(props) {
   const { portfolios, getPortfolios } = props
@@ -39,7 +39,8 @@ function App(props) {
     <>
       <Routes>
         <Route exact path="/" element={<Wrapper Component={Welcome} />} />
-        <Route exact path="/portfolio/:id" element={<Wrapper Component={Portfolio} />} />
+        <Route exact path="/portfolio" element={<Wrapper Component={Portfolio} />} />
+        <Route exact path="/scenarios" element={<Wrapper Component={Scenarios} />} />
       </Routes>
       <ToastContainer 
         position="top-right"
