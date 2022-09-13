@@ -1,4 +1,3 @@
-// import "./styles.css";
 import React from "react";
 import {
   BarChart,
@@ -10,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer
 } from "recharts";
+import { convertToInternationalCurrencySystem } from "../../utils/currency";
 
 const getStrategies = (portfolio, filterBy) => {
   let ids = {}
@@ -32,18 +32,6 @@ const getFilteredData = (portfolio, metric) => {
     }
   }
   return ids
-}
-
-const DataFormater = (number) => {
-  if(number > 1000000000){
-    return (number/1000000000).toString() + 'B';
-  }else if(number > 1000000){
-    return (number/1000000).toString() + 'M';
-  }else if(number > 1000){
-    return (number/1000).toString() + 'K';
-  }else{
-    return number.toString();
-  }
 }
 
 export default function StackedBarChart({portfolio, metric}) {
@@ -79,7 +67,7 @@ export default function StackedBarChart({portfolio, metric}) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis tickFormatter={DataFormater} />
+          <YAxis tickFormatter={convertToInternationalCurrencySystem} />
           <Tooltip />
           <Legend />
           {Object.keys(strategiesIdsCallsCum || {}).map(strategy => (
