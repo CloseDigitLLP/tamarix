@@ -2,7 +2,7 @@ import React from 'react'
 import Select from 'react-select'
 import SidebarLayout from '../layouts/Sidebar'
 import Slider from '@mui/material/Slider';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import * as portfolioActions from '../services/portfolios/actions';
 import * as scenarioActions from '../services/scenarios/actions';
@@ -12,7 +12,7 @@ import { toast } from "react-toastify"
 
 const customStyles = {
     container: (styles) => ({ ...styles, background: 'white', outline: 'none', borderRadius: 90, justifyContent: 'space-between', display: 'flex', paddingLeft: 10, paddingRight: 20, minWidth: 300, maxWidth:'40%'}),
-    control: (styles, {isFocused, isSelected}) => ({ ...styles, flex: 1, background: 'transparent', border: 'none', minHeight:50,  fontSize: 18, fontWeight: 400, letterSpacing: 0.5, ':hover': { borderColor: '#fff', boxShadow: 'none' },  boxShadow: isSelected ? undefined : undefined,  boxShadow: isFocused ? undefined : undefined }),
+    control: (styles, {isFocused, isSelected}) => ({ ...styles, flex: 1, background: 'transparent', border: 'none', minHeight:50,  fontSize: 18, fontWeight: 400, letterSpacing: 0.5, ':hover': { borderColor: '#fff', boxShadow: 'none' },  boxShadow: isSelected ? undefined : undefined }),
     indicatorSeparator: () => ({ display: 'none' }),
     indicatorsContainer: (styles) => ({ ...styles }),
     dropdownIndicator: (styles) => ({ ...styles, background: '#65A8C9', color: 'white', borderRadius: 99 }),
@@ -22,11 +22,8 @@ const customStyles = {
             ...styles,
             cursor: 'pointer',
             'hover' : {backgroundColor:'#65a9c98a'},
-            backgroundColor: isFocused ? '#000' : '',
-            backgroundColor: isSelected ? '#65a9c98a' : '#fff',
-            'hover' : {backgroundColor:'#65a9c98a'},
-            boxShadow: undefined,
-            // 'active' : {backgroundColor:'#65a9c98a'}
+            backgroundColor: isFocused ? '#000' : ( isSelected ? '#65a9c98a' : '' ),
+            boxShadow: undefined
         };
     }
 }
