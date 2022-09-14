@@ -517,3 +517,189 @@ body{
   justify-content: space-between;
   align-items: center;
 }
+.user-info-drop-down{
+  display: none;
+}
+.close-icon{
+  display: none;
+}
+.menu-icon{
+  display: none;
+}
+a{
+  text-decoration: none;
+}
+.person-name a{
+  color: #000;
+}
+@media screen and (max-width:991px) {
+  .main-content-part{
+    margin-left: 0;
+  }
+  .header-part{
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+  }
+  .welcome-page .header-parts{
+    width: 100vw;
+    height: 100vh;
+    margin-top: 0;
+    margin-left: 0;
+    border-radius: 0;
+  }
+  .sidebar-part{
+    transform: translateX(-300px);
+    transition: transform .3s;
+    z-index: 22;
+    &.show{
+      transform: translateX(0px);
+    }
+  }
+  .menu-icon{
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .menu-icon{
+    display: block;
+  }
+  .sidebar-logo{
+    position: relative;
+    .close-icon{
+      position: absolute;
+      right: 13px;
+      background-color: transparent;
+      border: 0;
+      opacity: 0.6;
+      top: 12px;
+      display: block;
+      img{
+        width: 28px;
+      }
+    }
+  }
+  .main-content-part{
+    position: relative;
+    // overflow: hidden;
+    .blanck-white-part{
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      right: 0;
+      top: 0;
+      background-color: #000;
+      opacity: 0.3;
+      z-index: 3;
+    }
+  }
+  
+}
+@media screen and (max-width:767px) {
+  .custom-select{
+    min-width: 220px !important;
+  }
+  .main-content-part{
+    padding:15px 15px;
+    padding-top: 100px;
+  }
+  .welcome-page .logo-text{
+    font-size: 40px;
+  }
+  .welcome-page .header-parts .description .welcome-text{
+    font-size: 28px;
+  }
+  .welcome-page .header-parts .description .sentence{
+    font-size: 14px;
+  }
+  .welcome-page .button{
+    padding: 15px 25px;
+    font-size: 16px;
+  }
+  .selector-button{
+    padding: 4px;
+    font-size: 10px;
+    margin-left: 6px;
+    margin-right: 6px;
+    &.active{
+      margin-left: 6px;
+    margin-right: 6px;
+    }
+  }
+  .selector-btns-container{
+    width: 100%;
+    margin: 14px 0;
+  }
+  .section-title-container{
+    flex-wrap: wrap;
+  }
+  .recharts-layer text{
+    font-size: 8px;
+  }
+  .main-content-part .title{
+    font-size: 15px;
+  }
+  .owl-theme .owl-nav .owl-next,.owl-carousel .owl-nav button.owl-prev{
+    right: -32px;
+  }
+  .custom-radio-part .selecotr-item .selector-item_label{
+    min-width: 80px;
+  }
+  .titlebar{
+    margin: 20px 0 10px;
+  }
+  .title-part{
+    font-size: 16px;
+    margin: 0;
+  }
+  .radio-btn-heading{
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .radio-btn-text{
+    font-size: 12px;
+  }
+  .user-info{
+    display: none;
+  }
+  .user-info-drop-down{
+    display: block;
+  }
+  .dropdown-toggle.btn.btn-primary{
+    border-radius: 50%;
+    height: 30px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .dropdown-toggle::after{
+    display: none;
+  }
+  .dropdown-item{
+    text-transform: capitalize;
+    padding: 10px 15px 2px;
+    &:last-child{
+      padding: 10px 15px 8px 15px;
+    }
+    a{
+      color: #000;
+      text-decoration: none;
+    }
+  }
+  .dropdown-menu{
+    border: 0;
+    box-shadow: rgb(0 0 0 / 7%) -4px 9px 65px -6px;
+  }
+  .dropdown-item.name-link{
+    font-weight: 600;
+  }
+ 
+  .header-part{
+    padding: 15px 15px;
+  }
+}

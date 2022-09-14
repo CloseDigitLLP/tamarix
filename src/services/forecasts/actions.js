@@ -16,7 +16,7 @@ export const getForecasts = () =>  (dispatch, getStore) => {
 
     dispatch({ type: actionTypes.FORECASTS })
     try {
-        let { exposure_metrics } = store.portfolioDetails.data.port_settings
+        // let { exposure_metrics } = store.portfolioDetails.data.port_settings
         let payload = {
             scenario_name: store.activeScenario.value,
             port_name: store.activePortfolio.value,

@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import CloseIcon from '../assets/images/close.png'
+
 class Sidebar extends React.Component {
     render() {
+        const { showSideBar, toggleSidebar } = this.props
         return (
-            <div className='sidebar-part'>
+            <div className={`sidebar-part ${showSideBar ? 'show' : ''}`}>
                 <div className='sidebar-logo'>
-                <Link to={'/'}>TAMARIX</Link>
+                    <Link to={'/'}>TAMARIX</Link>
+                    <button onClick={toggleSidebar} className='close-icon'><img src={CloseIcon} alt="close-icon" /></button>
                 </div>
                 <div className='link-part'>
                 <ul>

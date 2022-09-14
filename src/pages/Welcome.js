@@ -8,7 +8,6 @@ class Welcome extends React.Component {
         if(portfolios.loading) {
             return <Loader />
         }
-        let [id] = portfolios?.data?.portfolios || []
         return (
             <div className="welcome-page">
                 <div className='header-parts'>

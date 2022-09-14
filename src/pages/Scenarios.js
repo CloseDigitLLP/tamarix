@@ -160,7 +160,7 @@ class Scenarios extends React.Component {
                         </div>
                         <div className='row'>
                             {Object.keys(scenario_data?.rates || {}).map((title) => (
-                                <div className='col-lg-6 mt-3' key={title}>
+                                <div className='col-xl-6 col-lg-12 mt-3' key={title}>
                                     <div className='custom-container'>
                                     <h4 className='radio-btn-heading'>Expected pace of cash flows</h4>
                                     <h6 className='radio-btn-text'>{title}</h6>
@@ -183,7 +183,7 @@ class Scenarios extends React.Component {
                             ))}  
                         </div>
                         <div className='row'>
-                            <div className='col-lg-6 col-md-12 col-sm-12 mt-3'>
+                            <div className='col-xl-6 col-lg-12 col-md-12 col-sm-12 mt-3'>
                                 <div className='custom-container'>
                                     <h4 className='radio-btn-heading'>Expected IRRs by strategy</h4>
                                     {Object.keys(scenario_data?.cmas || {}).map((title, index) => (
@@ -200,7 +200,7 @@ class Scenarios extends React.Component {
                                     ))}
                                 </div>
                             </div>
-                            <div className='col-lg-6 col-md-12 col-sm-12 mt-3'>
+                            <div className='col-xl-6 col-lg-12 col-md-12  col-sm-12 mt-3'>
                                 <div className='custom-container'>
                                     <h4 className='radio-btn-heading'>Expected IRRs by fund</h4>
                                     {Object.keys(scenario_data?.overrides || {}).map((title, index) => (

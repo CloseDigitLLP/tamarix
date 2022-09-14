@@ -84,7 +84,7 @@ class Projections extends React.Component {
                 </div>
                 {forecasts.success && 
                     <div className='row'>
-                        <div className='col-lg-6 mt-3'>
+                        <div className='col-xl-6 col-lg-12 mt-3'>
                             <div className='custom-container mt-3'>
                                 <div className='section-title-container'>
                                     <h5 className='title'>Cash Flow: calls - cum</h5>
@@ -94,7 +94,7 @@ class Projections extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-lg-6 mt-3'>
+                        <div className='col-xl-6 col-lg-12 mt-3'>
                             <div className='custom-container mt-3'>
                                 <div className='section-title-container'>
                                     <h5 className='title'>Actial NAV exposure: Entire Portfolio</h5>
