@@ -2,29 +2,36 @@
 
 ## Folder Structure
 
-**assets**
+### **assets**
+
 All static assets are stored here, like css, scss, js, images, etc.
 
-**components**
+### **components**
+
 All common components will be stored in root component folder
 
-**configs**
+### **configs**
+
 All general configurations like BaseURLs, and all other api urls will be stored in this folder.
 
-**layouts**
+### **layouts**
+
 All different layout components will be stored in layout folder.
 
-**pages**
+### **pages**
+
 All the Components which will directly added as a page on react router will be stored here. also page level **components** folder will be here where all the components which are specific to pages are stored in this **components** folder.
 
-**services**
+### **services**
+
 All the API calls are being managed from here using the Redux. In services I have divided Redux management into multiple modules, in our case we have 3 modules which are **Portfolio**, **Scenarios** and **forecasts**.
 
 Each module has their own set of **ActionTypes**, **Actions**, and **Reducers**. And each API call has different status flags available like **success**, **loading** and **error**, to make the api response structure common, I've used **data** key to store the api response and access using that key only. So using this structure we can get idea of the api call status everywhere and complete the operations accordingly.
 
 Also this folder has **store.js** and **reducer.js**, store.js file is for the basic configuration of the redux store and middlewares configurations, in our case we are using **thunk** middleware. and Reducer js manages separations of different reducers and their keys to access.
 
-**utils**
+### **utils**
+
 This folder contains all the utility functions like changing the formats of dates, numbers etc. and other general purpose functions.
 
 ## Available Scripts
